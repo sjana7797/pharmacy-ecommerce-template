@@ -11,12 +11,14 @@ import { DrizzleAsyncProvider } from '~api/drizzle/drizzle.constants';
 import { Database } from '~api/types';
 import { GetAllResponse } from '~api/types/response';
 import { CreateCategoryDto, UpdateCategoryDto } from './categories.dto';
+import { Logger } from 'nestjs-pino';
 
 @Injectable()
 export class CategoriesService {
   constructor(
     @Inject(DrizzleAsyncProvider)
     private db: Database,
+    private logger: Logger,
   ) {}
 
   async getAllCategories(
@@ -27,6 +29,8 @@ export class CategoriesService {
 
     const take = limit + 1;
     const skip = (page - 1) * take;
+
+    this.logger.log('Get All Categories');
 
     // query categories
     let categories = await this.db

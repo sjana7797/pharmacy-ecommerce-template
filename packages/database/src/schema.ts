@@ -17,6 +17,7 @@ export const customers = pgTable("customers", {
   lastName: varchar("last_name", { length: 255 }).notNull(),
   age: integer("age").notNull(),
   email: varchar("email", { length: 255 }).notNull().unique(),
+  password: varchar("password").notNull(),
   phone: varchar("phone", { length: 255 }).notNull(),
   createdAt: timestamp("created_at", {
     precision: 3,
@@ -40,6 +41,8 @@ export const users = pgTable("users", {
   id: uuid("id").primaryKey().defaultRandom(),
   firstName: varchar("first_name", { length: 255 }).notNull(),
   lastName: varchar("last_name", { length: 255 }).notNull(),
+  email: varchar("email", { length: 255 }).notNull().unique(),
+  password: varchar("password").notNull(),
   role: USERS_ENUM("role").default("USER").notNull(),
   createdAt: timestamp("created_at", {
     precision: 3,

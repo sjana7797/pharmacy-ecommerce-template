@@ -19,6 +19,11 @@
     "isolatedModules": true
   },
 
-  "include": ["src", "tsup.config.ts", "drizzle.config.ts"],
+  "include": [
+    "src",
+    "tsup.config.ts",
+    "drizzle.config.ts",
+    "../common/src/regex.ts"
+  ],
   "exclude": ["dist", "node_modules"]
 }

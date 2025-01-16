@@ -1,19 +1,17 @@
 import { ConfigModule } from '@nestjs/config';
 import { Module } from '@nestjs/common';
-import { UsersModule } from './users/users.module';
-import { CustomersModule } from './customers/customers.module';
-import { AuthModule } from './auth/auth.module';
 import { DrizzleModule } from './drizzle/drizzle.module';
 import { StoreModule } from './store/store.module';
+import { LoggerModule } from 'nestjs-pino';
+import { CoreModule } from './core/core.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
-    UsersModule,
-    CustomersModule,
-    AuthModule,
+    LoggerModule.forRoot(),
     DrizzleModule,
     StoreModule,
+    CoreModule,
   ],
   controllers: [],
   providers: [],
