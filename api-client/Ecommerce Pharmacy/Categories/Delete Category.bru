@@ -1,0 +1,15 @@
+meta {
+  name: Delete Category
+  type: http
+  seq: 6
+}
+
+delete {
+  url: {{BASE_URL}}/categories/{{id}}
+  body: json
+  auth: none
+}
+
+vars:pre-request {
+  id: 3c88b5c6-7e3d-4491-a88e-60436de0e145
+}

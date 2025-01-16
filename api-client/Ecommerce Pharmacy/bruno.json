@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "Ecommerce Pharmacy",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}

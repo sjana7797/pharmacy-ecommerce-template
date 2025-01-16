@@ -1,0 +1,20 @@
+meta {
+  name: Create Category
+  type: http
+  seq: 2
+}
+
+post {
+  url: {{BASE_URL}}/categories
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+      "name": "Category 9",
+      "slug": "category-9",
+      "description": "category desc",
+      "parentId": "86804083-c22c-430c-88f9-12520a8ff03f"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "name": "graphql-server",
+  "type": "module",
+  "scripts": {
+    "dev": "bun run --hot src/index.ts",
+    "build": "bun build src/index.ts --minify --dts --outdir=dist --target=bun",
+    "start:prod": "bun run dist/index.js",
+    "start": "bun run src/index.ts"
+  },
+  "dependencies": {
+    "@apollo/server": "^4.11.3",
+    "@repo/db": "workspace:*",
+    "drizzle-graphql": "^0.8.5",
+    "drizzle-orm": "^0.38.3",
+    "graphql": "^16.10.0",
+    "pg": "^8.13.1"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@types/pg": "^8.11.10"
+  }
+}
