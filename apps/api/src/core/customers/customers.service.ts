@@ -1,8 +1,13 @@
-import { Inject, Injectable, NotFoundException } from '@nestjs/common';
-import { Customer, schema } from '@repo/db';
-import { eq } from 'drizzle-orm';
-import { DrizzleAsyncProvider } from '~api/drizzle/drizzle.constants';
-import type { Database } from '~api/types';
+import {
+  Inject,
+  Injectable,
+  InternalServerErrorException,
+  NotFoundException,
+} from "@nestjs/common";
+import { Customer, CustomerCreatePayload, schema } from "@repo/db";
+import { eq } from "drizzle-orm";
+import { DrizzleAsyncProvider } from "~api/drizzle/drizzle.constants";
+import type { Database } from "~api/types";
 
 @Injectable()
 export class CustomersService {
@@ -23,5 +28,18 @@ export class CustomersService {
     }
 
     return customers[0];
+  }
+
+  async createCustomer(customer: CustomerCreatePayload): Promise<Customer> {
+    const createdCustomer = await this.db
+      .insert(schema.customers)
+      .values(customer)
+      .returning();
+
+    if (!createdCustomer.length) {
+      throw new InternalServerErrorException("Customer not created");
+    }
+
+    return createdCustomer[0];
   }
 }

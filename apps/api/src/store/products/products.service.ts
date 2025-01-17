@@ -3,15 +3,15 @@ import {
   Injectable,
   InternalServerErrorException,
   NotFoundException,
-} from '@nestjs/common';
-import { PaginationRequestDto } from '~api/common/dto/pagination.dto';
-import { DrizzleAsyncProvider } from '~api/drizzle/drizzle.constants';
-import { Database } from '~api/types';
-import { schema } from '@repo/db';
-import type { Product } from '@repo/db';
-import { asc, eq } from 'drizzle-orm';
-import { GetAllResponse } from '~api/types/response';
-import { CreateProductDto } from './products.dto';
+} from "@nestjs/common";
+import { PaginationRequestDto } from "~api/common/dto/pagination.dto";
+import { DrizzleAsyncProvider } from "~api/drizzle/drizzle.constants";
+import { Database } from "~api/types";
+import { schema } from "@repo/db";
+import type { Product } from "@repo/db";
+import { asc, eq } from "drizzle-orm";
+import { GetAllResponse } from "~api/types/response";
+import { CreateProductDto } from "./products.dto";
 
 @Injectable()
 export class ProductsService {
@@ -39,7 +39,7 @@ export class ProductsService {
 
     // check if products is empty
     if (!products?.length) {
-      throw new NotFoundException('Products not found');
+      throw new NotFoundException("Products not found");
     }
 
     // check if there is more products
@@ -114,7 +114,7 @@ export class ProductsService {
       .returning();
 
     if (!productData.length)
-      throw new InternalServerErrorException('Product was not able to save');
+      throw new InternalServerErrorException("Product was not able to save");
 
     return productData[0];
   }

@@ -14,9 +14,17 @@
     "skipLibCheck": true,
     "strictNullChecks": true,
     "noImplicitAny": true,
+    "noImplicitThis": true,
     "strictBindCallApply": false,
+    "strictPropertyInitialization": true,
     "forceConsistentCasingInFileNames": false,
-    "noFallthroughCasesInSwitch": false,
+    "allowUnreachableCode": false,
+    "allowUnusedLabels": false,
+    "noFallthroughCasesInSwitch": true,
+    "noImplicitReturns": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "alwaysStrict": true,
 
     "paths": {
       "~api/*": ["./src/*"]

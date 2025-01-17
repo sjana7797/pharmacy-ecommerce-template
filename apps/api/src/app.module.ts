@@ -1,9 +1,10 @@
-import { ConfigModule } from '@nestjs/config';
-import { Module } from '@nestjs/common';
-import { DrizzleModule } from './drizzle/drizzle.module';
-import { StoreModule } from './store/store.module';
-import { LoggerModule } from 'nestjs-pino';
-import { CoreModule } from './core/core.module';
+import { ConfigModule } from "@nestjs/config";
+import { Module } from "@nestjs/common";
+import { DrizzleModule } from "./drizzle/drizzle.module";
+import { StoreModule } from "./store/store.module";
+import { LoggerModule } from "nestjs-pino";
+import { CoreModule } from "./core/core.module";
+import { AdminModule } from "./admin/admin.module";
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { CoreModule } from './core/core.module';
     DrizzleModule,
     StoreModule,
     CoreModule,
+    AdminModule,
   ],
   controllers: [],
   providers: [],

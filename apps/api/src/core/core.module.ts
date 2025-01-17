@@ -1,9 +1,8 @@
-import { Module } from '@nestjs/common';
-import { AuthModule } from '~api/core/auth/auth.module';
-import { CustomersModule } from '~api/core/customers/customers.module';
-import { UsersModule } from '~api/core/users/users.module';
+import { Module } from "@nestjs/common";
+import { AuthModule } from "~api/core/auth/auth.module";
+import { CustomersModule } from "~api/core/customers/customers.module";
 
 @Module({
-  imports: [AuthModule, UsersModule, CustomersModule],
+  imports: [AuthModule, CustomersModule],
 })
 export class CoreModule {}
