@@ -1,15 +1,10 @@
 import type { Config } from "tailwindcss";
 import tailwindcssAnimate from "tailwindcss-animate";
+import tailwindScrollbarHide from "tailwind-scrollbar-hide";
 
 const config = {
   darkMode: ["class"],
-  content: [
-    "src/app/**/*.{ts,tsx}",
-    "src/components/**/*.{ts,tsx}",
-    "src/routes/**/*.{ts,tsx}",
-
-    "../../packages/ui/src/**/*.{ts,tsx}",
-  ],
+  content: ["src/**/*.{ts,tsx}", "../../packages/ui/src/**/*.{ts,tsx}"],
   theme: {
     extend: {
       colors: {
@@ -64,7 +59,7 @@ const config = {
       },
     },
   },
-  plugins: [tailwindcssAnimate],
+  plugins: [tailwindcssAnimate, tailwindScrollbarHide],
 } satisfies Config;
 
 export default config;

@@ -1,6 +1,6 @@
-import { ArgumentMetadata, Injectable, PipeTransform } from '@nestjs/common';
-import { PaginationRequestDto } from '~api/common/dto/pagination.dto';
-import { plainToInstance } from 'class-transformer';
+import { ArgumentMetadata, Injectable, PipeTransform } from "@nestjs/common";
+import { PaginationRequestDto } from "@/api/common/dto/pagination.dto";
+import { plainToInstance } from "class-transformer";
 
 @Injectable()
 export class PaginationTransformPipe implements PipeTransform {

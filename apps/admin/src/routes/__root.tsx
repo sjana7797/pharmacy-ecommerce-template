@@ -5,6 +5,7 @@ import { SidebarInset, SidebarProvider } from "@repo/ui/components/sidebar";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import Header from "../components/global/header";
+import NotFound from "../pages/not-found";
 
 // Create a client
 const queryClient = new QueryClient({
@@ -30,4 +31,5 @@ export const Route = createRootRoute({
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   ),
+  notFoundComponent: NotFound,
 });

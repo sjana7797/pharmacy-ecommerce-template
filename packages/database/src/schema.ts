@@ -1,4 +1,4 @@
-import { InferSelectModel, relations } from "drizzle-orm";
+import { relations } from "drizzle-orm";
 import {
   integer,
   pgTable,
@@ -9,6 +9,8 @@ import {
   primaryKey,
   timestamp,
   boolean,
+  AnyPgColumn,
+  alias,
 } from "drizzle-orm/pg-core";
 
 export const customers = pgTable("customers", {
@@ -118,7 +120,7 @@ export const categories = pgTable("categories", {
   isDeleted: boolean("is_deleted").default(false),
 
   status: STATUS_ENUM("status").default("DRAFT"),
-  parentId: uuid("parent_id"),
+  parentId: uuid("parent_id").references((): AnyPgColumn => categories.id),
 
   createdAt: timestamp("created_at", {
     precision: 3,
@@ -148,10 +150,5 @@ export const brandsRelations = relations(brands, ({ many }) => ({
 }));
 
 export const categoriesRelations = relations(categories, ({ many, one }) => ({
-  parent: one(categories, {
-    fields: [categories.parentId],
-    references: [categories.id],
-  }),
-
   products: many(products),
 }));

@@ -13,14 +13,23 @@ import { createFileRoute } from '@tanstack/react-router'
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as CategoryAddImport } from './routes/category/add'
 
 // Create Virtual Routes
 
 const IndexLazyImport = createFileRoute('/')()
 const ProductIndexLazyImport = createFileRoute('/product/')()
+const CategoryIndexLazyImport = createFileRoute('/category/')()
 const ProductAddLazyImport = createFileRoute('/product/add')()
-const ProductPostIdIndexLazyImport = createFileRoute('/product/$postId/')()
-const ProductPostIdEditLazyImport = createFileRoute('/product/$postId/edit')()
+const ProductProductSlugIndexLazyImport = createFileRoute(
+  '/product/$productSlug/',
+)()
+const CategoryCategorySlugIndexLazyImport = createFileRoute(
+  '/category/$categorySlug/',
+)()
+const ProductProductSlugEditLazyImport = createFileRoute(
+  '/product/$productSlug/edit',
+)()
 
 // Create/Update Routes
 
@@ -36,26 +45,52 @@ const ProductIndexLazyRoute = ProductIndexLazyImport.update({
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/product/index.lazy').then((d) => d.Route))
 
+const CategoryIndexLazyRoute = CategoryIndexLazyImport.update({
+  id: '/category/',
+  path: '/category/',
+  getParentRoute: () => rootRoute,
+} as any).lazy(() =>
+  import('./routes/category/index.lazy').then((d) => d.Route),
+)
+
 const ProductAddLazyRoute = ProductAddLazyImport.update({
   id: '/product/add',
   path: '/product/add',
   getParentRoute: () => rootRoute,
 } as any).lazy(() => import('./routes/product/add.lazy').then((d) => d.Route))
 
-const ProductPostIdIndexLazyRoute = ProductPostIdIndexLazyImport.update({
-  id: '/product/$postId/',
-  path: '/product/$postId/',
+const CategoryAddRoute = CategoryAddImport.update({
+  id: '/category/add',
+  path: '/category/add',
   getParentRoute: () => rootRoute,
-} as any).lazy(() =>
-  import('./routes/product/$postId/index.lazy').then((d) => d.Route),
-)
+} as any)
 
-const ProductPostIdEditLazyRoute = ProductPostIdEditLazyImport.update({
-  id: '/product/$postId/edit',
-  path: '/product/$postId/edit',
-  getParentRoute: () => rootRoute,
-} as any).lazy(() =>
-  import('./routes/product/$postId/edit.lazy').then((d) => d.Route),
+const ProductProductSlugIndexLazyRoute =
+  ProductProductSlugIndexLazyImport.update({
+    id: '/product/$productSlug/',
+    path: '/product/$productSlug/',
+    getParentRoute: () => rootRoute,
+  } as any).lazy(() =>
+    import('./routes/product/$productSlug/index.lazy').then((d) => d.Route),
+  )
+
+const CategoryCategorySlugIndexLazyRoute =
+  CategoryCategorySlugIndexLazyImport.update({
+    id: '/category/$categorySlug/',
+    path: '/category/$categorySlug/',
+    getParentRoute: () => rootRoute,
+  } as any).lazy(() =>
+    import('./routes/category/$categorySlug/index.lazy').then((d) => d.Route),
+  )
+
+const ProductProductSlugEditLazyRoute = ProductProductSlugEditLazyImport.update(
+  {
+    id: '/product/$productSlug/edit',
+    path: '/product/$productSlug/edit',
+    getParentRoute: () => rootRoute,
+  } as any,
+).lazy(() =>
+  import('./routes/product/$productSlug/edit.lazy').then((d) => d.Route),
 )
 
 // Populate the FileRoutesByPath interface
@@ -69,11 +104,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexLazyImport
       parentRoute: typeof rootRoute
     }
+    '/category/add': {
+      id: '/category/add'
+      path: '/category/add'
+      fullPath: '/category/add'
+      preLoaderRoute: typeof CategoryAddImport
+      parentRoute: typeof rootRoute
+    }
     '/product/add': {
       id: '/product/add'
       path: '/product/add'
       fullPath: '/product/add'
       preLoaderRoute: typeof ProductAddLazyImport
+      parentRoute: typeof rootRoute
+    }
+    '/category/': {
+      id: '/category/'
+      path: '/category'
+      fullPath: '/category'
+      preLoaderRoute: typeof CategoryIndexLazyImport
       parentRoute: typeof rootRoute
     }
     '/product/': {
@@ -83,18 +132,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProductIndexLazyImport
       parentRoute: typeof rootRoute
     }
-    '/product/$postId/edit': {
-      id: '/product/$postId/edit'
-      path: '/product/$postId/edit'
-      fullPath: '/product/$postId/edit'
-      preLoaderRoute: typeof ProductPostIdEditLazyImport
+    '/product/$productSlug/edit': {
+      id: '/product/$productSlug/edit'
+      path: '/product/$productSlug/edit'
+      fullPath: '/product/$productSlug/edit'
+      preLoaderRoute: typeof ProductProductSlugEditLazyImport
       parentRoute: typeof rootRoute
     }
-    '/product/$postId/': {
-      id: '/product/$postId/'
-      path: '/product/$postId'
-      fullPath: '/product/$postId'
-      preLoaderRoute: typeof ProductPostIdIndexLazyImport
+    '/category/$categorySlug/': {
+      id: '/category/$categorySlug/'
+      path: '/category/$categorySlug'
+      fullPath: '/category/$categorySlug'
+      preLoaderRoute: typeof CategoryCategorySlugIndexLazyImport
+      parentRoute: typeof rootRoute
+    }
+    '/product/$productSlug/': {
+      id: '/product/$productSlug/'
+      path: '/product/$productSlug'
+      fullPath: '/product/$productSlug'
+      preLoaderRoute: typeof ProductProductSlugIndexLazyImport
       parentRoute: typeof rootRoute
     }
   }
@@ -104,68 +160,92 @@ declare module '@tanstack/react-router' {
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexLazyRoute
+  '/category/add': typeof CategoryAddRoute
   '/product/add': typeof ProductAddLazyRoute
+  '/category': typeof CategoryIndexLazyRoute
   '/product': typeof ProductIndexLazyRoute
-  '/product/$postId/edit': typeof ProductPostIdEditLazyRoute
-  '/product/$postId': typeof ProductPostIdIndexLazyRoute
+  '/product/$productSlug/edit': typeof ProductProductSlugEditLazyRoute
+  '/category/$categorySlug': typeof CategoryCategorySlugIndexLazyRoute
+  '/product/$productSlug': typeof ProductProductSlugIndexLazyRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof IndexLazyRoute
+  '/category/add': typeof CategoryAddRoute
   '/product/add': typeof ProductAddLazyRoute
+  '/category': typeof CategoryIndexLazyRoute
   '/product': typeof ProductIndexLazyRoute
-  '/product/$postId/edit': typeof ProductPostIdEditLazyRoute
-  '/product/$postId': typeof ProductPostIdIndexLazyRoute
+  '/product/$productSlug/edit': typeof ProductProductSlugEditLazyRoute
+  '/category/$categorySlug': typeof CategoryCategorySlugIndexLazyRoute
+  '/product/$productSlug': typeof ProductProductSlugIndexLazyRoute
 }
 
 export interface FileRoutesById {
   __root__: typeof rootRoute
   '/': typeof IndexLazyRoute
+  '/category/add': typeof CategoryAddRoute
   '/product/add': typeof ProductAddLazyRoute
+  '/category/': typeof CategoryIndexLazyRoute
   '/product/': typeof ProductIndexLazyRoute
-  '/product/$postId/edit': typeof ProductPostIdEditLazyRoute
-  '/product/$postId/': typeof ProductPostIdIndexLazyRoute
+  '/product/$productSlug/edit': typeof ProductProductSlugEditLazyRoute
+  '/category/$categorySlug/': typeof CategoryCategorySlugIndexLazyRoute
+  '/product/$productSlug/': typeof ProductProductSlugIndexLazyRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/category/add'
     | '/product/add'
+    | '/category'
     | '/product'
-    | '/product/$postId/edit'
-    | '/product/$postId'
+    | '/product/$productSlug/edit'
+    | '/category/$categorySlug'
+    | '/product/$productSlug'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/category/add'
     | '/product/add'
+    | '/category'
     | '/product'
-    | '/product/$postId/edit'
-    | '/product/$postId'
+    | '/product/$productSlug/edit'
+    | '/category/$categorySlug'
+    | '/product/$productSlug'
   id:
     | '__root__'
     | '/'
+    | '/category/add'
     | '/product/add'
+    | '/category/'
     | '/product/'
-    | '/product/$postId/edit'
-    | '/product/$postId/'
+    | '/product/$productSlug/edit'
+    | '/category/$categorySlug/'
+    | '/product/$productSlug/'
   fileRoutesById: FileRoutesById
 }
 
 export interface RootRouteChildren {
   IndexLazyRoute: typeof IndexLazyRoute
+  CategoryAddRoute: typeof CategoryAddRoute
   ProductAddLazyRoute: typeof ProductAddLazyRoute
+  CategoryIndexLazyRoute: typeof CategoryIndexLazyRoute
   ProductIndexLazyRoute: typeof ProductIndexLazyRoute
-  ProductPostIdEditLazyRoute: typeof ProductPostIdEditLazyRoute
-  ProductPostIdIndexLazyRoute: typeof ProductPostIdIndexLazyRoute
+  ProductProductSlugEditLazyRoute: typeof ProductProductSlugEditLazyRoute
+  CategoryCategorySlugIndexLazyRoute: typeof CategoryCategorySlugIndexLazyRoute
+  ProductProductSlugIndexLazyRoute: typeof ProductProductSlugIndexLazyRoute
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexLazyRoute: IndexLazyRoute,
+  CategoryAddRoute: CategoryAddRoute,
   ProductAddLazyRoute: ProductAddLazyRoute,
+  CategoryIndexLazyRoute: CategoryIndexLazyRoute,
   ProductIndexLazyRoute: ProductIndexLazyRoute,
-  ProductPostIdEditLazyRoute: ProductPostIdEditLazyRoute,
-  ProductPostIdIndexLazyRoute: ProductPostIdIndexLazyRoute,
+  ProductProductSlugEditLazyRoute: ProductProductSlugEditLazyRoute,
+  CategoryCategorySlugIndexLazyRoute: CategoryCategorySlugIndexLazyRoute,
+  ProductProductSlugIndexLazyRoute: ProductProductSlugIndexLazyRoute,
 }
 
 export const routeTree = rootRoute
@@ -179,26 +259,38 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/",
+        "/category/add",
         "/product/add",
+        "/category/",
         "/product/",
-        "/product/$postId/edit",
-        "/product/$postId/"
+        "/product/$productSlug/edit",
+        "/category/$categorySlug/",
+        "/product/$productSlug/"
       ]
     },
     "/": {
       "filePath": "index.lazy.tsx"
     },
+    "/category/add": {
+      "filePath": "category/add.tsx"
+    },
     "/product/add": {
       "filePath": "product/add.lazy.tsx"
+    },
+    "/category/": {
+      "filePath": "category/index.lazy.tsx"
     },
     "/product/": {
       "filePath": "product/index.lazy.tsx"
     },
-    "/product/$postId/edit": {
-      "filePath": "product/$postId/edit.lazy.tsx"
+    "/product/$productSlug/edit": {
+      "filePath": "product/$productSlug/edit.lazy.tsx"
     },
-    "/product/$postId/": {
-      "filePath": "product/$postId/index.lazy.tsx"
+    "/category/$categorySlug/": {
+      "filePath": "category/$categorySlug/index.lazy.tsx"
+    },
+    "/product/$productSlug/": {
+      "filePath": "product/$productSlug/index.lazy.tsx"
     }
   }
 }

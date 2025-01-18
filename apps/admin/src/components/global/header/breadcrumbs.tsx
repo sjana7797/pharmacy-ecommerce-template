@@ -15,17 +15,19 @@ function Breadcrumbs() {
 
   const paths = pathname.split("/");
 
+  const link = (index: number) => `/${paths.slice(0, index + 1).join("/")}`;
+
   return (
-    <Breadcrumb>
+    <Breadcrumb className="hidden md:block">
       <BreadcrumbList>
         <Render renderIf={pathname !== "/"}>
-          {paths.slice(0, paths.length - 1).map((path) => {
+          {paths.slice(0, paths.length - 1).map((path, index) => {
             return (
               <>
                 <BreadcrumbItem className="hidden md:block">
                   <Render renderIf={path !== ""}>
                     <BreadcrumbLink asChild>
-                      <Link to="/" className="capitalize">
+                      <Link to={link(index)} className="capitalize">
                         {toSentenceCase(path)}
                       </Link>
                     </BreadcrumbLink>

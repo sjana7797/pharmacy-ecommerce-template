@@ -5,43 +5,8 @@
     {
       "idx": 0,
       "version": "7",
-      "when": 1737008820096,
-      "tag": "0000_superb_joystick",
-      "breakpoints": true
-    },
-    {
-      "idx": 1,
-      "version": "7",
-      "when": 1737009433023,
-      "tag": "0001_foamy_mongu",
-      "breakpoints": true
-    },
-    {
-      "idx": 2,
-      "version": "7",
-      "when": 1737015378534,
-      "tag": "0002_third_tyrannus",
-      "breakpoints": true
-    },
-    {
-      "idx": 3,
-      "version": "7",
-      "when": 1737021554842,
-      "tag": "0003_fantastic_wrecker",
-      "breakpoints": true
-    },
-    {
-      "idx": 4,
-      "version": "7",
-      "when": 1737031323137,
-      "tag": "0004_tiresome_nekra",
-      "breakpoints": true
-    },
-    {
-      "idx": 5,
-      "version": "7",
-      "when": 1737037366299,
-      "tag": "0005_cute_sugar_man",
+      "when": 1737192478559,
+      "tag": "0000_tired_scarlet_spider",
       "breakpoints": true
     }
   ]

@@ -2,7 +2,7 @@ import { PassportStrategy } from "@nestjs/passport";
 import { Strategy } from "passport-local";
 import { AuthService } from "../auth.service";
 import { Injectable, UnauthorizedException } from "@nestjs/common";
-import { AuthUser } from "~api/types/auth";
+import { AuthUser } from "@/api/types/auth";
 import { Logger } from "nestjs-pino";
 
 @Injectable()

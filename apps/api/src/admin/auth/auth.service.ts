@@ -3,8 +3,8 @@ import {
   Injectable,
   UnauthorizedException,
 } from "@nestjs/common";
-import { SignInDto } from "~api/core/auth/auth.dto";
-import { AuthUser } from "~api/types/auth";
+import { SignInDto } from "@/api/core/auth/auth.dto";
+import { AuthUser } from "@/api/types/auth";
 import { UsersService } from "../users/users.service";
 
 @Injectable()

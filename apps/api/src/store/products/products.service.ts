@@ -4,13 +4,13 @@ import {
   InternalServerErrorException,
   NotFoundException,
 } from "@nestjs/common";
-import { PaginationRequestDto } from "~api/common/dto/pagination.dto";
-import { DrizzleAsyncProvider } from "~api/drizzle/drizzle.constants";
-import { Database } from "~api/types";
+import { PaginationRequestDto } from "@/api/common/dto/pagination.dto";
+import { DrizzleAsyncProvider } from "@/api/drizzle/drizzle.constants";
+import { Database } from "@/api/types";
 import { schema } from "@repo/db";
 import type { Product } from "@repo/db";
 import { asc, eq } from "drizzle-orm";
-import { GetAllResponse } from "~api/types/response";
+import { GetAllResponse } from "@/api/types/response";
 import { CreateProductDto } from "./products.dto";
 
 @Injectable()

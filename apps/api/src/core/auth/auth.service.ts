@@ -5,12 +5,12 @@ import {
   UnauthorizedException,
 } from "@nestjs/common";
 import { CustomerRegisterDto, SignInDto } from "./auth.dto";
-import { DrizzleAsyncProvider } from "~api/drizzle/drizzle.constants";
-import { Database } from "~api/types";
+import { DrizzleAsyncProvider } from "@/api/drizzle/drizzle.constants";
+import { Database } from "@/api/types";
 import { CustomersService } from "../customers/customers.service";
-import { hashPassword, validatePassword } from "~api/utils/paasword.utils";
-import { AuthJwtPayload, Session, AuthUser } from "~api/types/auth";
-import { fullNameAndInitials } from "~api/utils/name";
+import { hashPassword, validatePassword } from "@/api/utils/paasword.utils";
+import { AuthJwtPayload, Session, AuthUser } from "@/api/types/auth";
+import { fullNameAndInitials } from "@/api/utils/name";
 import { JwtService } from "@nestjs/jwt";
 
 @Injectable()

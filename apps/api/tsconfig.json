@@ -27,7 +27,7 @@
     "alwaysStrict": true,
 
     "paths": {
-      "~api/*": ["./src/*"]
+      "@/api/*": ["./src/*"]
     }
   }
 }

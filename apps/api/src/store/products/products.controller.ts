@@ -6,16 +6,16 @@ import {
   Post,
   Query,
   UsePipes,
-} from '@nestjs/common';
-import { ProductsService } from './products.service';
-import { PaginationRequestDto } from '~api/common/dto/pagination.dto';
-import type { Product } from '@repo/db';
-import { GetAllResponse } from '~api/types/response';
-import { ZodValidationPipe } from 'nestjs-zod';
-import { CreateProductDto } from './products.dto';
-import { PaginationTransformPipe } from '~api/common/pipes/pagination.pipe';
+} from "@nestjs/common";
+import { ProductsService } from "./products.service";
+import { PaginationRequestDto } from "@/api/common/dto/pagination.dto";
+import type { Product } from "@repo/db";
+import { GetAllResponse } from "@/api/types/response";
+import { ZodValidationPipe } from "nestjs-zod";
+import { CreateProductDto } from "./products.dto";
+import { PaginationTransformPipe } from "@/api/common/pipes/pagination.pipe";
 
-@Controller('products')
+@Controller("products")
 export class ProductsController {
   constructor(private readonly productsService: ProductsService) {}
 
@@ -27,13 +27,13 @@ export class ProductsController {
     return await this.productsService.getAllProducts(getAllItemPayload);
   }
 
-  @Get('id/:id')
-  async getProductById(@Param('id') id: string): Promise<Product> {
+  @Get("id/:id")
+  async getProductById(@Param("id") id: string): Promise<Product> {
     return await this.productsService.getProductById(id);
   }
 
-  @Get(':id')
-  async getProduct(@Param('id') id: string): Promise<Product> {
+  @Get(":id")
+  async getProduct(@Param("id") id: string): Promise<Product> {
     return await this.productsService.getProductBySlug(id);
   }
 

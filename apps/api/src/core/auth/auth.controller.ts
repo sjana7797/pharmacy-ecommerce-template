@@ -9,7 +9,7 @@ import {
 import { AuthService } from "./auth.service";
 import { CustomerRegisterDto, SignInDto } from "./auth.dto";
 import { ZodValidationPipe } from "nestjs-zod";
-import { AuthUser } from "~api/types/auth";
+import { AuthUser } from "@/api/types/auth";
 import { LocalAuthGuard } from "./guards/local-auth/local-auth.guard";
 
 @Controller("auth")

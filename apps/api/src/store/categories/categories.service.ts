@@ -3,15 +3,15 @@ import {
   Injectable,
   InternalServerErrorException,
   NotFoundException,
-} from '@nestjs/common';
-import { schema, type Category } from '@repo/db';
-import { asc, eq, inArray } from 'drizzle-orm';
-import { PaginationRequestDto } from '~api/common/dto/pagination.dto';
-import { DrizzleAsyncProvider } from '~api/drizzle/drizzle.constants';
-import { Database } from '~api/types';
-import { GetAllResponse } from '~api/types/response';
-import { CreateCategoryDto, UpdateCategoryDto } from './categories.dto';
-import { Logger } from 'nestjs-pino';
+} from "@nestjs/common";
+import { categoryParent, schema, type Category } from "@repo/db";
+import { eq, inArray } from "drizzle-orm";
+import { PaginationRequestDto } from "@/api/common/dto/pagination.dto";
+import { DrizzleAsyncProvider } from "@/api/drizzle/drizzle.constants";
+import { Database } from "@/api/types";
+import { GetAllResponse } from "@repo/types";
+import { CreateCategoryDto, UpdateCategoryDto } from "./categories.dto";
+import { Logger } from "nestjs-pino";
 
 @Injectable()
 export class CategoriesService {
@@ -21,28 +21,34 @@ export class CategoriesService {
     private logger: Logger,
   ) {}
 
-  async getAllCategories(
-    getAllItemPayload: PaginationRequestDto,
-  ): Promise<GetAllResponse<Category>> {
+  async getAllCategories(getAllItemPayload: PaginationRequestDto): Promise<
+    GetAllResponse<{
+      categories: Category | null;
+      category_parent: Category | null;
+    }>
+  > {
     // payload
     const { limit, page } = getAllItemPayload;
 
     const take = limit + 1;
-    const skip = (page - 1) * take;
+    const skip = (page - 1) * limit;
 
-    this.logger.log('Get All Categories');
+    this.logger.log("Get All Categories");
 
     // query categories
     let categories = await this.db
       .select()
       .from(schema.categories)
-      .orderBy(asc(schema.categories.name))
+      .leftJoin(
+        categoryParent,
+        eq(categoryParent.id, schema.categories.parentId),
+      )
       .limit(take)
       .offset(skip);
 
     // check if categories is empty
     if (!categories?.length) {
-      throw new NotFoundException('Categories not found');
+      throw new NotFoundException("Categories not found");
     }
 
     // check if there is more products
@@ -102,7 +108,7 @@ export class CategoriesService {
       .returning();
 
     if (!categoryData.length)
-      throw new InternalServerErrorException('Category was not able to save');
+      throw new InternalServerErrorException("Category was not able to save");
 
     return categoryData[0];
   }
@@ -118,12 +124,12 @@ export class CategoriesService {
       .returning();
 
     if (!categoryData.length)
-      throw new InternalServerErrorException('Category was unable to save');
+      throw new InternalServerErrorException("Category was unable to save");
 
     return categoryData[0];
   }
 
-  async deleteCategory(id: string): Promise<Pick<Category, 'id'>[]> {
+  async deleteCategory(id: string): Promise<Pick<Category, "id">[]> {
     const getAllCategoriesRelatedToCategory = await this.db
       .select({
         id: schema.categories.id,
@@ -142,7 +148,7 @@ export class CategoriesService {
       .returning({ id: schema.categories.id });
 
     if (!categoryData.length)
-      throw new InternalServerErrorException('Category was unable to delete');
+      throw new InternalServerErrorException("Category was unable to delete");
 
     return categoryData;
   }

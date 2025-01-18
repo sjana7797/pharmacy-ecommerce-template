@@ -10,6 +10,10 @@ async function bootstrap(): Promise<void> {
 
   app.useGlobalPipes(new ValidationPipe());
 
+  app.enableCors({
+    origin: "*",
+  });
+
   if (process.env.NODE_ENV === "production") {
     app.useLogger(app.get(Logger));
   }

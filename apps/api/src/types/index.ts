@@ -1,1 +1,1 @@
-export { Database } from '~api/types/drizzle';
+export { Database } from "@/api/types/drizzle";

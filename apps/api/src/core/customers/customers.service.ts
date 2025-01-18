@@ -6,8 +6,8 @@ import {
 } from "@nestjs/common";
 import { Customer, CustomerCreatePayload, schema } from "@repo/db";
 import { eq } from "drizzle-orm";
-import { DrizzleAsyncProvider } from "~api/drizzle/drizzle.constants";
-import type { Database } from "~api/types";
+import { DrizzleAsyncProvider } from "@/api/drizzle/drizzle.constants";
+import type { Database } from "@/api/types";
 
 @Injectable()
 export class CustomersService {
