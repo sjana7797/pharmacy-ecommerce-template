@@ -1,9 +1,0 @@
-{
-  "compilerOptions": {
-    "strict": true,
-    "module": "NodeNext",
-    "noImplicitAny": true,
-    "strictNullChecks": true,
-    "moduleResolution": "nodenext"
-  }
-}

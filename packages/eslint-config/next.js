@@ -33,6 +33,43 @@ export const nextJsConfig = [
     rules: {
       ...pluginNext.configs.recommended.rules,
       ...pluginNext.configs["core-web-vitals"].rules,
+      "import/order": [
+        1,
+        {
+          groups: [
+            "external",
+            "builtin",
+            "internal",
+            "sibling",
+            "parent",
+            "index",
+          ],
+          pathGroups: [
+            {
+              pattern: "components",
+              group: "internal",
+            },
+            {
+              pattern: "common",
+              group: "internal",
+            },
+            {
+              pattern: "routes/ **",
+              group: "internal",
+            },
+            {
+              pattern: "assets/**",
+              group: "internal",
+              position: "after",
+            },
+          ],
+          pathGroupsExcludedImportTypes: ["internal"],
+          alphabetize: {
+            order: "asc",
+            caseInsensitive: true,
+          },
+        },
+      ],
     },
   },
   {
@@ -44,6 +81,7 @@ export const nextJsConfig = [
       ...pluginReactHooks.configs.recommended.rules,
       // React scope no longer necessary with new JSX transform.
       "react/react-in-jsx-scope": "off",
+      "no-unused-vars": "error",
     },
   },
 ];

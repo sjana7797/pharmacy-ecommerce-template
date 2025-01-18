@@ -1,5 +1,3 @@
-import exp from "constants";
-
 export type AuthUser = {
   email: string;
   id: string;
@@ -11,7 +9,7 @@ export type AuthUser = {
 };
 
 export type AuthJwtPayload = {
-  sub: AuthUser;
+  sub: Pick<AuthUser, "id" | "email">;
 };
 
 export type Session = {

@@ -104,14 +104,17 @@ export class AuthService {
     const { accessToken } = await this.generateTokens(user);
 
     return {
-      id: user.id,
+      ...user,
       accessToken,
     };
   }
 
   async generateTokens(user: AuthUser) {
     const payload: AuthJwtPayload = {
-      sub: user,
+      sub: {
+        id: user.id,
+        email: user.email,
+      },
     };
 
     const [accessToken] = await Promise.all([
