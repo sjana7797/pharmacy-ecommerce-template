@@ -7,30 +7,15 @@ import { ReactNode } from "@tanstack/react-router";
 import { createContext, useContext, useState } from "react";
 
 const AuthContext = createContext<AuthStateContext>({
-  user: null,
-  accessToken: null,
+  session: null,
   setSession: () => null,
 });
 
 function AuthProvider({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<AuthUser | null>(null);
-  const [accessToken, setAccessToken] = useState<string | null>(null);
-
-  const setSession = (session: Session | null) => {
-    if (!session) {
-      setAccessToken(null);
-      setUser(null);
-      return;
-    }
-
-    setAccessToken(session.accessToken);
-    setUser({
-      ...session,
-    });
-  };
+  const [session, setSession] = useState<Session | null>(null);
 
   return (
-    <AuthContext.Provider value={{ user, accessToken, setSession }}>
+    <AuthContext.Provider value={{ setSession, session }}>
       {children}
     </AuthContext.Provider>
   );

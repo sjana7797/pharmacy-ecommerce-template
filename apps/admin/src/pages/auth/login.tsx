@@ -19,15 +19,10 @@ function Login() {
   const authSigInForm = useForm<SignIn>({
     resolver: zodResolver(signInSchema),
   });
-  const { mutate, isPending } = useLogin();
+  const { mutateAsync, isPending } = useLogin();
 
   const onSubmit = async (data: SignIn) => {
-    mutate({
-      data: {
-        email: data.email,
-        password: data.password,
-      },
-    });
+    await mutateAsync(data);
   };
 
   return (

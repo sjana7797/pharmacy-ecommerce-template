@@ -1,7 +1,7 @@
 import PageTitle from '@/admin/components/global/title'
-import { createFileRoute } from '@tanstack/react-router'
+import { createLazyFileRoute } from '@tanstack/react-router'
 
-export const Route = createFileRoute(
+export const Route = createLazyFileRoute(
   '/_protected/_layout/category/$categorySlug/',
 )({
   component: CategoryPage,

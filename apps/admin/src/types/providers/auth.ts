@@ -1,6 +1,5 @@
 export type AuthStateContext = {
-  user: AuthUser | null;
-  accessToken?: string | null;
+  session: Session | null;
   setSession: (session: Session | null) => void;
 };
 

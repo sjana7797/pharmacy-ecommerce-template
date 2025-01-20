@@ -4,6 +4,7 @@
   "description": "Database package",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "type": "commonjs",
   "exports": {
     "require": {
       "types": "./dist/index.d.ts",

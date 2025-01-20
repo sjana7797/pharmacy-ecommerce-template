@@ -1,7 +1,7 @@
 {
-  "name": "api",
+  "name": "api-d",
   "scripts": {
-    "dev": "bun run --hot src/index.ts",
+    "dev:no": "bun run --hot src/index.ts",
     "build": "bun build src/index.ts --minify --dts --outdir=dist",
     "start": "bun run src/index.ts",
     "start:prod": "bun run dist/index.js"
