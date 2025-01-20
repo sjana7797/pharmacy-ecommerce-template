@@ -24,7 +24,7 @@ function CategoryPage() {
     data?.data.map((c, index) => ({
       ...c.categories,
       index,
-      parent_category: c.parent_category,
+      parentCategory: c.category_parent,
     })) ?? [];
 
   const nextCursor = data?.nextCursor;

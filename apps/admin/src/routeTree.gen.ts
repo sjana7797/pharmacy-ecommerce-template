@@ -8,249 +8,333 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { createFileRoute } from '@tanstack/react-router'
+import { createFileRoute } from "@tanstack/react-router";
 
 // Import Routes
 
-import { Route as rootRoute } from './routes/__root'
-import { Route as CategoryAddImport } from './routes/category/add'
+import { Route as rootRoute } from "./routes/__root";
+import { Route as ProtectedImport } from "./routes/_protected";
+import { Route as AuthLoginImport } from "./routes/auth/login";
+import { Route as ProtectedLayoutImport } from "./routes/_protected/_layout";
+import { Route as ProtectedLayoutIndexImport } from "./routes/_protected/_layout/index.lazy";
+import { Route as ProtectedLayoutProductIndexImport } from "./routes/_protected/_layout/product/index.lazy";
+import { Route as ProtectedLayoutCategoryIndexImport } from "./routes/_protected/_layout/category/index.lazy";
+import { Route as ProtectedLayoutProductAddImport } from "./routes/_protected/_layout/product/add.lazy";
+import { Route as ProtectedLayoutCategoryAddImport } from "./routes/_protected/_layout/category/add.lazy";
+import { Route as ProtectedLayoutCategoryCategorySlugIndexImport } from "./routes/_protected/_layout/category/$categorySlug/index.lazy";
 
 // Create Virtual Routes
 
-const IndexLazyImport = createFileRoute('/')()
-const ProductIndexLazyImport = createFileRoute('/product/')()
-const CategoryIndexLazyImport = createFileRoute('/category/')()
-const ProductAddLazyImport = createFileRoute('/product/add')()
-const ProductProductSlugIndexLazyImport = createFileRoute(
-  '/product/$productSlug/',
-)()
-const CategoryCategorySlugIndexLazyImport = createFileRoute(
-  '/category/$categorySlug/',
-)()
-const ProductProductSlugEditLazyImport = createFileRoute(
-  '/product/$productSlug/edit',
-)()
+const ProtectedLayoutProductProductSlugIndexLazyImport = createFileRoute(
+  "/_protected/_layout/product/$productSlug/",
+)();
+const ProtectedLayoutProductProductSlugEditLazyImport = createFileRoute(
+  "/_protected/_layout/product/$productSlug/edit",
+)();
 
 // Create/Update Routes
 
-const IndexLazyRoute = IndexLazyImport.update({
-  id: '/',
-  path: '/',
+const ProtectedRoute = ProtectedImport.update({
+  id: "/_protected",
   getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./routes/index.lazy').then((d) => d.Route))
+} as any);
 
-const ProductIndexLazyRoute = ProductIndexLazyImport.update({
-  id: '/product/',
-  path: '/product/',
+const AuthLoginRoute = AuthLoginImport.update({
+  id: "/auth/login",
+  path: "/auth/login",
   getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./routes/product/index.lazy').then((d) => d.Route))
+} as any);
 
-const CategoryIndexLazyRoute = CategoryIndexLazyImport.update({
-  id: '/category/',
-  path: '/category/',
-  getParentRoute: () => rootRoute,
-} as any).lazy(() =>
-  import('./routes/category/index.lazy').then((d) => d.Route),
-)
+const ProtectedLayoutRoute = ProtectedLayoutImport.update({
+  id: "/_layout",
+  getParentRoute: () => ProtectedRoute,
+} as any);
 
-const ProductAddLazyRoute = ProductAddLazyImport.update({
-  id: '/product/add',
-  path: '/product/add',
-  getParentRoute: () => rootRoute,
-} as any).lazy(() => import('./routes/product/add.lazy').then((d) => d.Route))
+const ProtectedLayoutIndexRoute = ProtectedLayoutIndexImport.update({
+  id: "/",
+  path: "/",
+  getParentRoute: () => ProtectedLayoutRoute,
+} as any);
 
-const CategoryAddRoute = CategoryAddImport.update({
-  id: '/category/add',
-  path: '/category/add',
-  getParentRoute: () => rootRoute,
-} as any)
+const ProtectedLayoutProductIndexRoute =
+  ProtectedLayoutProductIndexImport.update({
+    id: "/product/",
+    path: "/product/",
+    getParentRoute: () => ProtectedLayoutRoute,
+  } as any);
 
-const ProductProductSlugIndexLazyRoute =
-  ProductProductSlugIndexLazyImport.update({
-    id: '/product/$productSlug/',
-    path: '/product/$productSlug/',
-    getParentRoute: () => rootRoute,
-  } as any).lazy(() =>
-    import('./routes/product/$productSlug/index.lazy').then((d) => d.Route),
-  )
+const ProtectedLayoutCategoryIndexRoute =
+  ProtectedLayoutCategoryIndexImport.update({
+    id: "/category/",
+    path: "/category/",
+    getParentRoute: () => ProtectedLayoutRoute,
+  } as any);
 
-const CategoryCategorySlugIndexLazyRoute =
-  CategoryCategorySlugIndexLazyImport.update({
-    id: '/category/$categorySlug/',
-    path: '/category/$categorySlug/',
-    getParentRoute: () => rootRoute,
-  } as any).lazy(() =>
-    import('./routes/category/$categorySlug/index.lazy').then((d) => d.Route),
-  )
+const ProtectedLayoutProductAddRoute = ProtectedLayoutProductAddImport.update({
+  id: "/product/add",
+  path: "/product/add",
+  getParentRoute: () => ProtectedLayoutRoute,
+} as any);
 
-const ProductProductSlugEditLazyRoute = ProductProductSlugEditLazyImport.update(
+const ProtectedLayoutCategoryAddRoute = ProtectedLayoutCategoryAddImport.update(
   {
-    id: '/product/$productSlug/edit',
-    path: '/product/$productSlug/edit',
-    getParentRoute: () => rootRoute,
+    id: "/category/add",
+    path: "/category/add",
+    getParentRoute: () => ProtectedLayoutRoute,
   } as any,
-).lazy(() =>
-  import('./routes/product/$productSlug/edit.lazy').then((d) => d.Route),
-)
+);
+
+const ProtectedLayoutProductProductSlugIndexLazyRoute =
+  ProtectedLayoutProductProductSlugIndexLazyImport.update({
+    id: "/product/$productSlug/",
+    path: "/product/$productSlug/",
+    getParentRoute: () => ProtectedLayoutRoute,
+  } as any).lazy(() =>
+    import("./routes/_protected/_layout/product/$productSlug/index.lazy").then(
+      (d) => d.Route,
+    ),
+  );
+
+const ProtectedLayoutCategoryCategorySlugIndexRoute =
+  ProtectedLayoutCategoryCategorySlugIndexImport.update({
+    id: "/category/$categorySlug/",
+    path: "/category/$categorySlug/",
+    getParentRoute: () => ProtectedLayoutRoute,
+  } as any);
+
+const ProtectedLayoutProductProductSlugEditLazyRoute =
+  ProtectedLayoutProductProductSlugEditLazyImport.update({
+    id: "/product/$productSlug/edit",
+    path: "/product/$productSlug/edit",
+    getParentRoute: () => ProtectedLayoutRoute,
+  } as any).lazy(() =>
+    import("./routes/_protected/_layout/product/$productSlug/edit.lazy").then(
+      (d) => d.Route,
+    ),
+  );
 
 // Populate the FileRoutesByPath interface
 
-declare module '@tanstack/react-router' {
+declare module "@tanstack/react-router" {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexLazyImport
-      parentRoute: typeof rootRoute
-    }
-    '/category/add': {
-      id: '/category/add'
-      path: '/category/add'
-      fullPath: '/category/add'
-      preLoaderRoute: typeof CategoryAddImport
-      parentRoute: typeof rootRoute
-    }
-    '/product/add': {
-      id: '/product/add'
-      path: '/product/add'
-      fullPath: '/product/add'
-      preLoaderRoute: typeof ProductAddLazyImport
-      parentRoute: typeof rootRoute
-    }
-    '/category/': {
-      id: '/category/'
-      path: '/category'
-      fullPath: '/category'
-      preLoaderRoute: typeof CategoryIndexLazyImport
-      parentRoute: typeof rootRoute
-    }
-    '/product/': {
-      id: '/product/'
-      path: '/product'
-      fullPath: '/product'
-      preLoaderRoute: typeof ProductIndexLazyImport
-      parentRoute: typeof rootRoute
-    }
-    '/product/$productSlug/edit': {
-      id: '/product/$productSlug/edit'
-      path: '/product/$productSlug/edit'
-      fullPath: '/product/$productSlug/edit'
-      preLoaderRoute: typeof ProductProductSlugEditLazyImport
-      parentRoute: typeof rootRoute
-    }
-    '/category/$categorySlug/': {
-      id: '/category/$categorySlug/'
-      path: '/category/$categorySlug'
-      fullPath: '/category/$categorySlug'
-      preLoaderRoute: typeof CategoryCategorySlugIndexLazyImport
-      parentRoute: typeof rootRoute
-    }
-    '/product/$productSlug/': {
-      id: '/product/$productSlug/'
-      path: '/product/$productSlug'
-      fullPath: '/product/$productSlug'
-      preLoaderRoute: typeof ProductProductSlugIndexLazyImport
-      parentRoute: typeof rootRoute
-    }
+    "/_protected": {
+      id: "/_protected";
+      path: "";
+      fullPath: "";
+      preLoaderRoute: typeof ProtectedImport;
+      parentRoute: typeof rootRoute;
+    };
+    "/_protected/_layout": {
+      id: "/_protected/_layout";
+      path: "";
+      fullPath: "";
+      preLoaderRoute: typeof ProtectedLayoutImport;
+      parentRoute: typeof ProtectedImport;
+    };
+    "/auth/login": {
+      id: "/auth/login";
+      path: "/auth/login";
+      fullPath: "/auth/login";
+      preLoaderRoute: typeof AuthLoginImport;
+      parentRoute: typeof rootRoute;
+    };
+    "/_protected/_layout/": {
+      id: "/_protected/_layout/";
+      path: "/";
+      fullPath: "/";
+      preLoaderRoute: typeof ProtectedLayoutIndexImport;
+      parentRoute: typeof ProtectedLayoutImport;
+    };
+    "/_protected/_layout/category/add": {
+      id: "/_protected/_layout/category/add";
+      path: "/category/add";
+      fullPath: "/category/add";
+      preLoaderRoute: typeof ProtectedLayoutCategoryAddImport;
+      parentRoute: typeof ProtectedLayoutImport;
+    };
+    "/_protected/_layout/product/add": {
+      id: "/_protected/_layout/product/add";
+      path: "/product/add";
+      fullPath: "/product/add";
+      preLoaderRoute: typeof ProtectedLayoutProductAddImport;
+      parentRoute: typeof ProtectedLayoutImport;
+    };
+    "/_protected/_layout/category/": {
+      id: "/_protected/_layout/category/";
+      path: "/category";
+      fullPath: "/category";
+      preLoaderRoute: typeof ProtectedLayoutCategoryIndexImport;
+      parentRoute: typeof ProtectedLayoutImport;
+    };
+    "/_protected/_layout/product/": {
+      id: "/_protected/_layout/product/";
+      path: "/product";
+      fullPath: "/product";
+      preLoaderRoute: typeof ProtectedLayoutProductIndexImport;
+      parentRoute: typeof ProtectedLayoutImport;
+    };
+    "/_protected/_layout/product/$productSlug/edit": {
+      id: "/_protected/_layout/product/$productSlug/edit";
+      path: "/product/$productSlug/edit";
+      fullPath: "/product/$productSlug/edit";
+      preLoaderRoute: typeof ProtectedLayoutProductProductSlugEditLazyImport;
+      parentRoute: typeof ProtectedLayoutImport;
+    };
+    "/_protected/_layout/category/$categorySlug/": {
+      id: "/_protected/_layout/category/$categorySlug/";
+      path: "/category/$categorySlug";
+      fullPath: "/category/$categorySlug";
+      preLoaderRoute: typeof ProtectedLayoutCategoryCategorySlugIndexImport;
+      parentRoute: typeof ProtectedLayoutImport;
+    };
+    "/_protected/_layout/product/$productSlug/": {
+      id: "/_protected/_layout/product/$productSlug/";
+      path: "/product/$productSlug";
+      fullPath: "/product/$productSlug";
+      preLoaderRoute: typeof ProtectedLayoutProductProductSlugIndexLazyImport;
+      parentRoute: typeof ProtectedLayoutImport;
+    };
   }
 }
 
 // Create and export the route tree
 
+interface ProtectedLayoutRouteChildren {
+  ProtectedLayoutIndexRoute: typeof ProtectedLayoutIndexRoute;
+  ProtectedLayoutCategoryAddRoute: typeof ProtectedLayoutCategoryAddRoute;
+  ProtectedLayoutProductAddRoute: typeof ProtectedLayoutProductAddRoute;
+  ProtectedLayoutCategoryIndexRoute: typeof ProtectedLayoutCategoryIndexRoute;
+  ProtectedLayoutProductIndexRoute: typeof ProtectedLayoutProductIndexRoute;
+  ProtectedLayoutProductProductSlugEditLazyRoute: typeof ProtectedLayoutProductProductSlugEditLazyRoute;
+  ProtectedLayoutCategoryCategorySlugIndexRoute: typeof ProtectedLayoutCategoryCategorySlugIndexRoute;
+  ProtectedLayoutProductProductSlugIndexLazyRoute: typeof ProtectedLayoutProductProductSlugIndexLazyRoute;
+}
+
+const ProtectedLayoutRouteChildren: ProtectedLayoutRouteChildren = {
+  ProtectedLayoutIndexRoute: ProtectedLayoutIndexRoute,
+  ProtectedLayoutCategoryAddRoute: ProtectedLayoutCategoryAddRoute,
+  ProtectedLayoutProductAddRoute: ProtectedLayoutProductAddRoute,
+  ProtectedLayoutCategoryIndexRoute: ProtectedLayoutCategoryIndexRoute,
+  ProtectedLayoutProductIndexRoute: ProtectedLayoutProductIndexRoute,
+  ProtectedLayoutProductProductSlugEditLazyRoute:
+    ProtectedLayoutProductProductSlugEditLazyRoute,
+  ProtectedLayoutCategoryCategorySlugIndexRoute:
+    ProtectedLayoutCategoryCategorySlugIndexRoute,
+  ProtectedLayoutProductProductSlugIndexLazyRoute:
+    ProtectedLayoutProductProductSlugIndexLazyRoute,
+};
+
+const ProtectedLayoutRouteWithChildren = ProtectedLayoutRoute._addFileChildren(
+  ProtectedLayoutRouteChildren,
+);
+
+interface ProtectedRouteChildren {
+  ProtectedLayoutRoute: typeof ProtectedLayoutRouteWithChildren;
+}
+
+const ProtectedRouteChildren: ProtectedRouteChildren = {
+  ProtectedLayoutRoute: ProtectedLayoutRouteWithChildren,
+};
+
+const ProtectedRouteWithChildren = ProtectedRoute._addFileChildren(
+  ProtectedRouteChildren,
+);
+
 export interface FileRoutesByFullPath {
-  '/': typeof IndexLazyRoute
-  '/category/add': typeof CategoryAddRoute
-  '/product/add': typeof ProductAddLazyRoute
-  '/category': typeof CategoryIndexLazyRoute
-  '/product': typeof ProductIndexLazyRoute
-  '/product/$productSlug/edit': typeof ProductProductSlugEditLazyRoute
-  '/category/$categorySlug': typeof CategoryCategorySlugIndexLazyRoute
-  '/product/$productSlug': typeof ProductProductSlugIndexLazyRoute
+  "": typeof ProtectedLayoutRouteWithChildren;
+  "/auth/login": typeof AuthLoginRoute;
+  "/": typeof ProtectedLayoutIndexRoute;
+  "/category/add": typeof ProtectedLayoutCategoryAddRoute;
+  "/product/add": typeof ProtectedLayoutProductAddRoute;
+  "/category": typeof ProtectedLayoutCategoryIndexRoute;
+  "/product": typeof ProtectedLayoutProductIndexRoute;
+  "/product/$productSlug/edit": typeof ProtectedLayoutProductProductSlugEditLazyRoute;
+  "/category/$categorySlug": typeof ProtectedLayoutCategoryCategorySlugIndexRoute;
+  "/product/$productSlug": typeof ProtectedLayoutProductProductSlugIndexLazyRoute;
 }
 
 export interface FileRoutesByTo {
-  '/': typeof IndexLazyRoute
-  '/category/add': typeof CategoryAddRoute
-  '/product/add': typeof ProductAddLazyRoute
-  '/category': typeof CategoryIndexLazyRoute
-  '/product': typeof ProductIndexLazyRoute
-  '/product/$productSlug/edit': typeof ProductProductSlugEditLazyRoute
-  '/category/$categorySlug': typeof CategoryCategorySlugIndexLazyRoute
-  '/product/$productSlug': typeof ProductProductSlugIndexLazyRoute
+  "": typeof ProtectedRouteWithChildren;
+  "/auth/login": typeof AuthLoginRoute;
+  "/": typeof ProtectedLayoutIndexRoute;
+  "/category/add": typeof ProtectedLayoutCategoryAddRoute;
+  "/product/add": typeof ProtectedLayoutProductAddRoute;
+  "/category": typeof ProtectedLayoutCategoryIndexRoute;
+  "/product": typeof ProtectedLayoutProductIndexRoute;
+  "/product/$productSlug/edit": typeof ProtectedLayoutProductProductSlugEditLazyRoute;
+  "/category/$categorySlug": typeof ProtectedLayoutCategoryCategorySlugIndexRoute;
+  "/product/$productSlug": typeof ProtectedLayoutProductProductSlugIndexLazyRoute;
 }
 
 export interface FileRoutesById {
-  __root__: typeof rootRoute
-  '/': typeof IndexLazyRoute
-  '/category/add': typeof CategoryAddRoute
-  '/product/add': typeof ProductAddLazyRoute
-  '/category/': typeof CategoryIndexLazyRoute
-  '/product/': typeof ProductIndexLazyRoute
-  '/product/$productSlug/edit': typeof ProductProductSlugEditLazyRoute
-  '/category/$categorySlug/': typeof CategoryCategorySlugIndexLazyRoute
-  '/product/$productSlug/': typeof ProductProductSlugIndexLazyRoute
+  __root__: typeof rootRoute;
+  "/_protected": typeof ProtectedRouteWithChildren;
+  "/_protected/_layout": typeof ProtectedLayoutRouteWithChildren;
+  "/auth/login": typeof AuthLoginRoute;
+  "/_protected/_layout/": typeof ProtectedLayoutIndexRoute;
+  "/_protected/_layout/category/add": typeof ProtectedLayoutCategoryAddRoute;
+  "/_protected/_layout/product/add": typeof ProtectedLayoutProductAddRoute;
+  "/_protected/_layout/category/": typeof ProtectedLayoutCategoryIndexRoute;
+  "/_protected/_layout/product/": typeof ProtectedLayoutProductIndexRoute;
+  "/_protected/_layout/product/$productSlug/edit": typeof ProtectedLayoutProductProductSlugEditLazyRoute;
+  "/_protected/_layout/category/$categorySlug/": typeof ProtectedLayoutCategoryCategorySlugIndexRoute;
+  "/_protected/_layout/product/$productSlug/": typeof ProtectedLayoutProductProductSlugIndexLazyRoute;
 }
 
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath
+  fileRoutesByFullPath: FileRoutesByFullPath;
   fullPaths:
-    | '/'
-    | '/category/add'
-    | '/product/add'
-    | '/category'
-    | '/product'
-    | '/product/$productSlug/edit'
-    | '/category/$categorySlug'
-    | '/product/$productSlug'
-  fileRoutesByTo: FileRoutesByTo
+    | ""
+    | "/auth/login"
+    | "/"
+    | "/category/add"
+    | "/product/add"
+    | "/category"
+    | "/product"
+    | "/product/$productSlug/edit"
+    | "/category/$categorySlug"
+    | "/product/$productSlug";
+  fileRoutesByTo: FileRoutesByTo;
   to:
-    | '/'
-    | '/category/add'
-    | '/product/add'
-    | '/category'
-    | '/product'
-    | '/product/$productSlug/edit'
-    | '/category/$categorySlug'
-    | '/product/$productSlug'
+    | ""
+    | "/auth/login"
+    | "/"
+    | "/category/add"
+    | "/product/add"
+    | "/category"
+    | "/product"
+    | "/product/$productSlug/edit"
+    | "/category/$categorySlug"
+    | "/product/$productSlug";
   id:
-    | '__root__'
-    | '/'
-    | '/category/add'
-    | '/product/add'
-    | '/category/'
-    | '/product/'
-    | '/product/$productSlug/edit'
-    | '/category/$categorySlug/'
-    | '/product/$productSlug/'
-  fileRoutesById: FileRoutesById
+    | "__root__"
+    | "/_protected"
+    | "/_protected/_layout"
+    | "/auth/login"
+    | "/_protected/_layout/"
+    | "/_protected/_layout/category/add"
+    | "/_protected/_layout/product/add"
+    | "/_protected/_layout/category/"
+    | "/_protected/_layout/product/"
+    | "/_protected/_layout/product/$productSlug/edit"
+    | "/_protected/_layout/category/$categorySlug/"
+    | "/_protected/_layout/product/$productSlug/";
+  fileRoutesById: FileRoutesById;
 }
 
 export interface RootRouteChildren {
-  IndexLazyRoute: typeof IndexLazyRoute
-  CategoryAddRoute: typeof CategoryAddRoute
-  ProductAddLazyRoute: typeof ProductAddLazyRoute
-  CategoryIndexLazyRoute: typeof CategoryIndexLazyRoute
-  ProductIndexLazyRoute: typeof ProductIndexLazyRoute
-  ProductProductSlugEditLazyRoute: typeof ProductProductSlugEditLazyRoute
-  CategoryCategorySlugIndexLazyRoute: typeof CategoryCategorySlugIndexLazyRoute
-  ProductProductSlugIndexLazyRoute: typeof ProductProductSlugIndexLazyRoute
+  ProtectedRoute: typeof ProtectedRouteWithChildren;
+  AuthLoginRoute: typeof AuthLoginRoute;
 }
 
 const rootRouteChildren: RootRouteChildren = {
-  IndexLazyRoute: IndexLazyRoute,
-  CategoryAddRoute: CategoryAddRoute,
-  ProductAddLazyRoute: ProductAddLazyRoute,
-  CategoryIndexLazyRoute: CategoryIndexLazyRoute,
-  ProductIndexLazyRoute: ProductIndexLazyRoute,
-  ProductProductSlugEditLazyRoute: ProductProductSlugEditLazyRoute,
-  CategoryCategorySlugIndexLazyRoute: CategoryCategorySlugIndexLazyRoute,
-  ProductProductSlugIndexLazyRoute: ProductProductSlugIndexLazyRoute,
-}
+  ProtectedRoute: ProtectedRouteWithChildren,
+  AuthLoginRoute: AuthLoginRoute,
+};
 
 export const routeTree = rootRoute
   ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>()
+  ._addFileTypes<FileRouteTypes>();
 
 /* ROUTE_MANIFEST_START
 {
@@ -258,39 +342,64 @@ export const routeTree = rootRoute
     "__root__": {
       "filePath": "__root.tsx",
       "children": [
-        "/",
-        "/category/add",
-        "/product/add",
-        "/category/",
-        "/product/",
-        "/product/$productSlug/edit",
-        "/category/$categorySlug/",
-        "/product/$productSlug/"
+        "/_protected",
+        "/auth/login"
       ]
     },
-    "/": {
-      "filePath": "index.lazy.tsx"
+    "/_protected": {
+      "filePath": "_protected.tsx",
+      "children": [
+        "/_protected/_layout"
+      ]
     },
-    "/category/add": {
-      "filePath": "category/add.tsx"
+    "/_protected/_layout": {
+      "filePath": "_protected/_layout.tsx",
+      "parent": "/_protected",
+      "children": [
+        "/_protected/_layout/",
+        "/_protected/_layout/category/add",
+        "/_protected/_layout/product/add",
+        "/_protected/_layout/category/",
+        "/_protected/_layout/product/",
+        "/_protected/_layout/product/$productSlug/edit",
+        "/_protected/_layout/category/$categorySlug/",
+        "/_protected/_layout/product/$productSlug/"
+      ]
     },
-    "/product/add": {
-      "filePath": "product/add.lazy.tsx"
+    "/auth/login": {
+      "filePath": "auth/login.tsx"
     },
-    "/category/": {
-      "filePath": "category/index.lazy.tsx"
+    "/_protected/_layout/": {
+      "filePath": "_protected/_layout/index.tsx",
+      "parent": "/_protected/_layout"
     },
-    "/product/": {
-      "filePath": "product/index.lazy.tsx"
+    "/_protected/_layout/category/add": {
+      "filePath": "_protected/_layout/category/add.tsx",
+      "parent": "/_protected/_layout"
     },
-    "/product/$productSlug/edit": {
-      "filePath": "product/$productSlug/edit.lazy.tsx"
+    "/_protected/_layout/product/add": {
+      "filePath": "_protected/_layout/product/add.tsx",
+      "parent": "/_protected/_layout"
     },
-    "/category/$categorySlug/": {
-      "filePath": "category/$categorySlug/index.lazy.tsx"
+    "/_protected/_layout/category/": {
+      "filePath": "_protected/_layout/category/index.tsx",
+      "parent": "/_protected/_layout"
     },
-    "/product/$productSlug/": {
-      "filePath": "product/$productSlug/index.lazy.tsx"
+    "/_protected/_layout/product/": {
+      "filePath": "_protected/_layout/product/index.tsx",
+      "parent": "/_protected/_layout"
+    },
+    "/_protected/_layout/product/$productSlug/edit": {
+      "filePath": "_protected/_layout/product/$productSlug/edit.lazy.tsx",
+      "parent": "/_protected/_layout"
+    },
+    "/_protected/_layout/category/$categorySlug/": {
+      "filePath": "_protected/_layout/category/$categorySlug/index.tsx",
+      "parent": "/_protected/_layout"
+    },
+    "/_protected/_layout/product/$productSlug/": {
+      "filePath": "_protected/_layout/product/$productSlug/index.lazy.tsx",
+      "parent": "/_protected/_layout"
     }
   }
 }

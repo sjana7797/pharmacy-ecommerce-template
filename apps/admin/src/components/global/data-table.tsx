@@ -33,6 +33,7 @@ import {
 import { useModal } from "@/admin/hooks/modal";
 import DeleteModal from "../modal/delete";
 import { useState } from "react";
+import Render from "@repo/ui/components/render";
 
 interface IDataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[];
@@ -83,17 +84,49 @@ export function DataTable<TData, TValue>({
             <TableRow key={headerGroup.id}>
               {headerGroup.headers.map((header) => {
                 return (
-                  <TableHead
-                    key={header.id}
-                    className="text-sm border-r last:border-r-0"
-                  >
-                    {header.isPlaceholder
-                      ? null
-                      : flexRender(
-                          header.column.columnDef.header,
-                          header.getContext(),
-                        )}
-                  </TableHead>
+                  <>
+                    <Render renderIf={header.column.id === "id"}>
+                      <TableHead
+                        key={header.id}
+                        className="text-sm border-r last:border-r-0 w-10"
+                      >
+                        {header.isPlaceholder
+                          ? null
+                          : flexRender(
+                              header.column.columnDef.header,
+                              header.getContext(),
+                            )}
+                      </TableHead>
+                    </Render>
+                    <Render
+                      renderIf={!["actions", "id"].includes(header.column.id)}
+                    >
+                      <TableHead
+                        key={header.id}
+                        className="text-sm border-r last:border-r-0 w-52"
+                      >
+                        {header.isPlaceholder
+                          ? null
+                          : flexRender(
+                              header.column.columnDef.header,
+                              header.getContext(),
+                            )}
+                      </TableHead>
+                    </Render>
+                    <Render renderIf={header.column.id === "actions"}>
+                      <TableHead
+                        key={header.id}
+                        className="text-sm border-r last:border-r-0 w-8 flex items-center justify-center"
+                      >
+                        {header.isPlaceholder
+                          ? null
+                          : flexRender(
+                              header.column.columnDef.header,
+                              header.getContext(),
+                            )}
+                      </TableHead>
+                    </Render>
+                  </>
                 );
               })}
             </TableRow>
@@ -107,46 +140,68 @@ export function DataTable<TData, TValue>({
                 data-state={row.getIsSelected() && "selected"}
               >
                 {row.getVisibleCells().map((cell) => (
-                  <TableCell
-                    key={cell.id}
-                    className="text-sm border-r last:border-r-0 p-1"
-                  >
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                  </TableCell>
-                ))}
-                <TableCell
-                  colSpan={columns.length}
-                  className="w-fit text-center"
-                >
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        className="p-1 text-center"
+                  <>
+                    <Render renderIf={cell.column.id === "id"}>
+                      <TableCell
+                        key={cell.id}
+                        className="text-sm border-r last:border-r-0 p-1 w-fit truncate h-8"
                       >
-                        <MoreVertical />
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent
-                      align="start"
-                      side="right"
-                      className="w-[var(--dropdown-menu-trigger-width)]"
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext(),
+                        )}
+                      </TableCell>
+                    </Render>
+                    <Render
+                      renderIf={!["actions", "id"].includes(cell.column.id)}
                     >
-                      <DropdownMenuItem className="flex items-center gap-2">
-                        <EditIcon />
-                        Edit
-                      </DropdownMenuItem>
-                      <DropdownMenuItem
-                        className="text-destructive flex items-center gap-2"
-                        onClick={() => deleteModalHandler(row.original)}
+                      <TableCell
+                        key={cell.id}
+                        className="text-sm border-r last:border-r-0 p-1 w-52 truncate h-8"
                       >
-                        <Trash />
-                        Delete
-                      </DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                </TableCell>
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext(),
+                        )}
+                      </TableCell>
+                    </Render>
+                    <Render renderIf={cell.column.id === "actions"}>
+                      <TableCell
+                        key={cell.id}
+                        className="text-sm border-r last:border-r-0 p-1 w-8 items-center justify-center"
+                      >
+                        <DropdownMenu>
+                          <DropdownMenuTrigger asChild>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              className="p-1 text-center"
+                            >
+                              <MoreVertical />
+                            </Button>
+                          </DropdownMenuTrigger>
+                          <DropdownMenuContent
+                            align="start"
+                            side="right"
+                            className="w-[var(--dropdown-menu-trigger-width)]"
+                          >
+                            <DropdownMenuItem className="flex items-center gap-2">
+                              <EditIcon />
+                              Edit
+                            </DropdownMenuItem>
+                            <DropdownMenuItem
+                              className="text-destructive flex items-center gap-2"
+                              onClick={() => deleteModalHandler(row.original)}
+                            >
+                              <Trash />
+                              Delete
+                            </DropdownMenuItem>
+                          </DropdownMenuContent>
+                        </DropdownMenu>
+                      </TableCell>
+                    </Render>
+                  </>
+                ))}
               </TableRow>
             ))
           ) : (

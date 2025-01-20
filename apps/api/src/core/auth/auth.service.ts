@@ -12,6 +12,7 @@ import { hashPassword, validatePassword } from "@/api/utils/paasword.utils";
 import { AuthJwtPayload, Session, AuthUser } from "@/api/types/auth";
 import { fullNameAndInitials } from "@/api/utils/name";
 import { JwtService } from "@nestjs/jwt";
+import { Logger } from "nestjs-pino";
 
 @Injectable()
 export class AuthService {
@@ -20,6 +21,7 @@ export class AuthService {
     private db: Database,
     private readonly customersService: CustomersService,
     private readonly jwtService: JwtService,
+    private readonly logger: Logger,
   ) {}
 
   async authenticateCustomer(loginPayload: SignInDto): Promise<AuthUser> {
@@ -64,15 +66,20 @@ export class AuthService {
       throw new BadRequestException("Missing required fields");
     }
 
+    this.logger.log("Registering customer");
+
     // check if the email is already registered
     const existingCustomer =
       await this.customersService.getCustomerByEmail(email);
 
     if (existingCustomer) {
+      this.logger.error(`User with email:${email} already exists`);
       throw new UnauthorizedException("Email already registered");
     }
 
     const hashedPassword = await hashPassword(password);
+
+    this.logger.log("Password hashed");
 
     const customer = await this.customersService.createCustomer({
       firstName,
@@ -82,6 +89,8 @@ export class AuthService {
       age,
       phone,
     });
+
+    this.logger.log("Customer created successfully with id :", customer.id);
 
     const { fullName, initials } = fullNameAndInitials({
       firstName,

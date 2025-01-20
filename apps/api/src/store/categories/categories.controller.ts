@@ -25,7 +25,12 @@ export class CategoriesController {
   async getAllCategories(
     @Query(new PaginationTransformPipe())
     getAllItemPayload: PaginationRequestDto,
-  ): Promise<GetAllResponse<Category>> {
+  ): Promise<
+    GetAllResponse<{
+      categories: Category | null;
+      category_parent: Category | null;
+    }>
+  > {
     return await this.categoriesService.getAllCategories(getAllItemPayload);
   }
 

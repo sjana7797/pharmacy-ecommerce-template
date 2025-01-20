@@ -15,7 +15,7 @@ export async function getAllCategories(
     const response = await apiClient.get<
       GetAllResponse<{
         categories: Category;
-        parent_category: Category | null;
+        category_parent: Category | null;
       }>
     >("/categories", {
       params: paginatedRequestParams,

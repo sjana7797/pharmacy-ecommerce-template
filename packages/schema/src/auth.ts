@@ -9,6 +9,8 @@ export const signInSchema = z.object({
   password: z.string().min(8).regex(ALPHANUMERIC_WITH_SPECIAL_CHARACTERS),
 });
 
+export type SignIn = z.infer<typeof signInSchema>;
+
 const baseUserRegistrationSchema = z.object({
   email: z.string().email().min(1),
   password: z

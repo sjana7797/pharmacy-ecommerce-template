@@ -4,7 +4,11 @@ import tailwindScrollbarHide from "tailwind-scrollbar-hide";
 
 const config = {
   darkMode: ["class"],
-  content: ["src/**/*.{ts,tsx}", "../../packages/ui/src/**/*.{ts,tsx}"],
+  content: [
+    "src/**/*.{ts,tsx}",
+    "../../packages/ui/src/**/*.{ts,tsx}",
+    "app/**/*.{ts,tsx}",
+  ],
   theme: {
     extend: {
       colors: {

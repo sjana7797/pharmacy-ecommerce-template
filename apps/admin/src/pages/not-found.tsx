@@ -1,8 +1,9 @@
 import { ChevronLeft } from "lucide-react";
 
-import { Button } from "@repo/ui/components/button";
+import { buttonVariants } from "@repo/ui/components/button";
 import { Card, CardContent } from "@repo/ui/components/card";
 import { Link } from "@tanstack/react-router";
+import { cn } from "@repo/ui/lib/utils";
 
 export default function NotFound() {
   return (
@@ -15,12 +16,11 @@ export default function NotFound() {
               The page you're looking for doesn't exist or has been moved.
             </p>
           </div>
-          <Button asChild size="lg">
-            <Link to="/" className="gap-2">
-              <ChevronLeft className="h-4 w-4" />
-              Back to Home
-            </Link>
-          </Button>
+
+          <Link to="/" className={cn(buttonVariants(), "gap-2")}>
+            <ChevronLeft className="h-4 w-4" />
+            Back to Home
+          </Link>
         </CardContent>
       </Card>
     </div>

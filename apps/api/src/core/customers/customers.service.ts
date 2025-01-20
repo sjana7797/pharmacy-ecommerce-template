@@ -2,7 +2,6 @@ import {
   Inject,
   Injectable,
   InternalServerErrorException,
-  NotFoundException,
 } from "@nestjs/common";
 import { Customer, CustomerCreatePayload, schema } from "@repo/db";
 import { eq } from "drizzle-orm";
@@ -23,11 +22,7 @@ export class CustomersService {
       .where(eq(schema.customers.email, email))
       .limit(1);
 
-    if (!customers.length) {
-      throw new NotFoundException(`Customer with email : ${email} not found`);
-    }
-
-    return customers[0];
+    return customers?.[0] ?? null;
   }
 
   async createCustomer(customer: CustomerCreatePayload): Promise<Customer> {
