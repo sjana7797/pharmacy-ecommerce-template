@@ -1,0 +1,15 @@
+meta {
+  name: Get Brand
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{BASE_URL}}/brands/{{id}}
+  body: none
+  auth: none
+}
+
+vars:pre-request {
+  id: 24895a35-8764-40ac-aaaa-457f4fc2c471
+}

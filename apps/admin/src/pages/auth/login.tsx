@@ -11,8 +11,8 @@ import { Input } from "@repo/ui/components/input";
 import { PasswordInput } from "@repo/ui/components/password-input";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { signInSchema } from "@repo/schema";
-import type { SignIn } from "@repo/schema";
+import { signInSchema } from "@repo/common/schema";
+import type { SignIn } from "@repo/common/schema";
 import { useLogin } from "@/admin/hooks/api/auth";
 
 function Login() {

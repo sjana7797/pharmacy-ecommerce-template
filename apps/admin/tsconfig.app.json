@@ -29,5 +29,5 @@
       "@repo/ui/*": ["../../packages/ui/src/*"]
     }
   },
-  "include": ["src"]
+  "include": ["src", "../api/src/env.ts"]
 }

@@ -19,6 +19,6 @@
     "isolatedModules": true
   },
 
-  "include": ["src", "tsup.config.ts", "drizzle.config.ts"],
+  "include": ["src", "drizzle.config.ts"],
   "exclude": ["dist", "node_modules"]
 }

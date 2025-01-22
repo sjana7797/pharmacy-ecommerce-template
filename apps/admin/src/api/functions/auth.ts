@@ -1,4 +1,4 @@
-import { SignIn } from "@repo/schema";
+import { SignIn } from "@repo/common/schema";
 import { apiClient } from "../client";
 import { toast } from "sonner";
 import { authRoutes } from "../route";

@@ -1,7 +1,7 @@
-import { PaginationRequest } from "@repo/schema";
+import { PaginationRequest } from "@repo/common/schema";
 import { apiClient } from "../client";
-import type { GetAllResponse } from "@repo/types";
-import type { Category } from "@repo/db";
+import type { GetAllResponse } from "@repo/common/types";
+import type { Category } from "@repo/db/types";
 
 /**
  * Get all categories
@@ -18,7 +18,10 @@ export async function getAllCategories(
         category_parent: Category | null;
       }>
     >("/categories", {
-      params: paginatedRequestParams,
+      params: {
+        ...paginatedRequestParams,
+        page: paginatedRequestParams.cursor,
+      },
     });
     return response.data;
   } catch (error) {

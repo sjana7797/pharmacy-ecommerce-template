@@ -17,7 +17,7 @@ function CategoryPage() {
     usePagination();
   const { data, isRefetching, refetch } = useGetAllCategories({
     limit,
-    page,
+    cursor: page,
   });
 
   const categories =

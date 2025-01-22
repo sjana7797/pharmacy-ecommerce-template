@@ -1,0 +1,15 @@
+meta {
+  name: Get Category By Slug
+  type: http
+  seq: 3
+}
+
+get {
+  url: {{BASE_URL}}/categories/slug/{{slug}}
+  body: none
+  auth: none
+}
+
+vars:pre-request {
+  slug: category-1
+}
