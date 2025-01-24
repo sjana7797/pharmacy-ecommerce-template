@@ -6,7 +6,7 @@ Ecommerce template for the Pharmacy where we have store setup to buy medicine an
 - PNPM Workspace 
 - Store Website [(Next JS)](https://nextjs.org/)
 - Admin Portal (React JS) 
-- Backend Node JS [(Nest JS)](https://nestjs.com/)
+- Backend Node JS [(Hono 🔥)](https://hono.dev/)
 - Database Postgres
 - [Drizzle ORM](https://orm.drizzle.team/)
 - Typescript
