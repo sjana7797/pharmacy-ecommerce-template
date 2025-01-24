@@ -6,11 +6,9 @@ import {
   uuid,
   pgEnum,
   decimal,
-  primaryKey,
   timestamp,
   boolean,
   AnyPgColumn,
-  alias,
 } from "drizzle-orm/pg-core";
 
 export const customers = pgTable("customers", {
@@ -164,6 +162,6 @@ export const brandsRelations = relations(brands, ({ many }) => ({
   posts: many(products),
 }));
 
-export const categoriesRelations = relations(categories, ({ many, one }) => ({
+export const categoriesRelations = relations(categories, ({ many }) => ({
   products: many(products),
 }));
