@@ -1,0 +1,22 @@
+meta {
+  name: Register Customer
+  type: http
+  seq: 1
+}
+
+post {
+  url: {{BASE_URL}}/auth/register
+  body: json
+  auth: none
+}
+
+body:json {
+  {
+    "firstName": "Sanjay",
+    "lastName": "Jana",
+    "email": "sjana7797@gmail.com",
+    "password": "HelloSJ7797",
+    "age": 27,
+    "phone":"1234566787"
+  }
+}

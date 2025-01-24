@@ -1,0 +1,19 @@
+{
+  "name": "services",
+  "scripts": {
+    "dev": "bun run --hot src/index.ts",
+    "build": "bun build src/index.ts --minify --dts --sourcemap --outdir dist",
+    "start": "bun run src/index.ts",
+    "start:prod": "bun run dist/index.js",
+    "lint": "eslint src --ext .ts",
+    "format": "prettier --write src"
+  },
+  "dependencies": {
+    "hono": "^4.6.18",
+    "nodemailer": "^6.10.0"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@types/nodemailer": "^6.4.17"
+  }
+}

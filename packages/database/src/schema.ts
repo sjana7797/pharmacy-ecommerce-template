@@ -21,6 +21,21 @@ export const customers = pgTable("customers", {
   email: varchar("email", { length: 255 }).notNull().unique(),
   password: varchar("password").notNull(),
   phone: varchar("phone", { length: 255 }).notNull(),
+  lastLogin: timestamp("last_login", {
+    precision: 3,
+    withTimezone: true,
+  }).defaultNow(),
+  isVerified: boolean("is_verified").default(false),
+  resetPasswordToken: varchar("reset_password_token", { length: 255 }),
+  resetPasswordExpiresAt: timestamp("reset_password_expires_at", {
+    precision: 3,
+    withTimezone: true,
+  }),
+  verificationToken: varchar("verification_token", { length: 255 }),
+  verificationExpiresAt: timestamp("verification_expires_at", {
+    precision: 3,
+    withTimezone: true,
+  }),
   createdAt: timestamp("created_at", {
     precision: 3,
     withTimezone: true,

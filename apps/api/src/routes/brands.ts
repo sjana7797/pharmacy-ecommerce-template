@@ -2,7 +2,6 @@ import { Hono } from "hono";
 import { db } from "@repo/db";
 import { brands } from "@repo/db/schema";
 import { eq } from "drizzle-orm";
-import RedisClient from "ioredis";
 import { zValidator } from "@hono/zod-validator";
 import { z } from "zod";
 import { createBrandSchema } from "@repo/common/schema";
@@ -18,8 +17,6 @@ const brandsRoute = new Hono();
 
 brandsRoute
   .get("/", async (c) => {
-    const client = new RedisClient({});
-
     const s = c.req.query();
 
     const page = s.page ? Number(s.page) : 1;
@@ -27,12 +24,6 @@ brandsRoute
 
     const take = limit + 1;
     const skip = (page - 1) * limit;
-
-    const cachedData = await client.get(`brands:${page}:${limit}`);
-
-    if (cachedData) {
-      return c.json(JSON.parse(cachedData));
-    }
 
     // query brands
     let brandsData = await db.select().from(brands).limit(take).offset(skip);
@@ -51,8 +42,6 @@ brandsRoute
     }
 
     const response = generatePaginatedResponse(brandsData, nextCursor, page);
-
-    client.set(`brands:${page}:${limit}`, JSON.stringify(response), "EX", 60);
 
     return c.json(response);
   })

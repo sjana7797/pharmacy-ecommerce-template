@@ -8,4 +8,45 @@ export default [
   { languageOptions: { globals: globals.browser } },
   pluginJs.configs.recommended,
   ...tseslint.configs.recommended,
+  {
+    rules: {
+      "import/order": [
+        1,
+        {
+          groups: [
+            "external",
+            "builtin",
+            "internal",
+            "sibling",
+            "parent",
+            "index",
+          ],
+          pathGroups: [
+            {
+              pattern: "components",
+              group: "internal",
+            },
+            {
+              pattern: "common",
+              group: "internal",
+            },
+            {
+              pattern: "routes/ **",
+              group: "internal",
+            },
+            {
+              pattern: "assets/**",
+              group: "internal",
+              position: "after",
+            },
+          ],
+          pathGroupsExcludedImportTypes: ["internal"],
+          alphabetize: {
+            order: "asc",
+            caseInsensitive: true,
+          },
+        },
+      ],
+    },
+  },
 ];

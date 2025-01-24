@@ -1,5 +1,5 @@
 import { ColumnDef } from "@tanstack/react-table";
-import type { Category } from "@repo/db";
+import type { Category } from "@repo/db/types";
 import { Link } from "@tanstack/react-router";
 import { LinkIcon } from "lucide-react";
 import Render from "@repo/ui/components/render";

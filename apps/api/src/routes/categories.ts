@@ -2,7 +2,6 @@ import { Hono } from "hono";
 import { db, categoryParent } from "@repo/db";
 import { categories } from "@repo/db/schema";
 import { eq } from "drizzle-orm";
-import RedisClient from "ioredis";
 import { zValidator } from "@hono/zod-validator";
 import { z } from "zod";
 import {
@@ -20,8 +19,6 @@ const categoriesRoute = new Hono();
 
 categoriesRoute
   .get("/", async (c) => {
-    const client = new RedisClient({});
-
     const s = c.req.query();
 
     const page = s.page ? Number(s.page) : 1;
@@ -29,12 +26,6 @@ categoriesRoute
 
     const take = limit + 1;
     const skip = (page - 1) * limit;
-
-    const cachedData = await client.get(`categories:${page}:${limit}`);
-
-    if (cachedData) {
-      return c.json(JSON.parse(cachedData));
-    }
 
     // query categories
     let categoriesData = await db
@@ -56,18 +47,6 @@ categoriesRoute
       nextCursor = page + 1;
       categoriesData = categoriesData.slice(0, limit);
     }
-
-    client.set(
-      `categories:${page}:${limit}`,
-      JSON.stringify({
-        data: categoriesData,
-        nextCursor,
-        page,
-        total: categoriesData.length,
-      }),
-      "EX",
-      60,
-    );
 
     return c.json({
       data: categoriesData,

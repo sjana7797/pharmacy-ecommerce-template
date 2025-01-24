@@ -9,6 +9,7 @@ import { DataTable } from "@/admin/components/global/data-table";
 import PageTitle from "@/admin/components/global/title";
 import { useGetAllCategories } from "@/admin/hooks/api/category";
 import { Link } from "@tanstack/react-router";
+import { api } from "@/admin/trpc/react";
 
 function CategoryPage() {
   // hooks
@@ -28,6 +29,8 @@ function CategoryPage() {
     })) ?? [];
 
   const nextCursor = data?.nextCursor;
+
+  api.category.getAllCategories.useQuery();
 
   // side effect
   useEffect(() => {

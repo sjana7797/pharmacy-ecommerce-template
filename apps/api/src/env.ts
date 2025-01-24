@@ -9,6 +9,10 @@ export const env = createEnv({
   server: {
     DATABASE_URL: z.string().url(),
     PORT: z.number().default(5000),
+    JWT_SECRET: z.string().min(1),
+    NODE_ENV: z
+      .enum(["development", "production", "test"])
+      .default("development"),
   },
   /*
    * Due to how Next.js bundles environment variables on Edge and Client,
@@ -19,5 +23,7 @@ export const env = createEnv({
   runtimeEnv: {
     PORT: process.env.PORT,
     DATABASE_URL: process.env.DATABASE_URL,
+    JWT_SECRET: process.env.JWT_SECRET,
+    NODE_ENV: process.env.NODE_ENV,
   },
 });
