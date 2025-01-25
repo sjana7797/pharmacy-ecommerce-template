@@ -1,8 +1,4 @@
-import type {
-  AuthStateContext,
-  AuthUser,
-  Session,
-} from "@/admin/types/providers/auth";
+import type { AuthStateContext, Session } from "@/admin/types/providers/auth";
 import { ReactNode } from "@tanstack/react-router";
 import { createContext, useContext, useState } from "react";
 

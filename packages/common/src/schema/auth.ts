@@ -11,7 +11,7 @@ export const signInSchema = z.object({
 
 export type SignIn = z.infer<typeof signInSchema>;
 
-const baseUserRegistrationSchema = z.object({
+export const registerUserSchema = z.object({
   email: z.string().email().min(1),
   password: z
     .string()
@@ -23,9 +23,16 @@ const baseUserRegistrationSchema = z.object({
     }),
   firstName: z.string().min(1),
   lastName: z.string().min(1),
-});
-
-export const registerCustomerSchema = baseUserRegistrationSchema.extend({
+  role: z
+    .enum([
+      "ADMIN",
+      "USER",
+      "PHARMACIST",
+      "PRODUCT_MANAGER",
+      "ACCOUNT_MANAGER",
+      "CUSTOMER",
+    ])
+    .default("CUSTOMER"),
   phone: z.string().length(10).regex(PHONE_NUMBER).optional(),
   age: z
     .number()
@@ -37,6 +44,7 @@ export const registerCustomerSchema = baseUserRegistrationSchema.extend({
     }),
 });
 
-export const registerUserSchema = registerCustomerSchema.extend({
-  role: z.enum(["MEMBER", "ADMIN"]).default("MEMBER"),
+export const verifyEmailSchema = z.object({
+  userId: z.string().uuid(),
+  verificationToken: z.string(),
 });

@@ -1,7 +1,5 @@
 "use client";
 
-import * as React from "react";
-
 import { SidebarMenu, SidebarMenuButton } from "@repo/ui/components/sidebar";
 import { useNavigate } from "@tanstack/react-router";
 import { GalleryVerticalEnd } from "lucide-react";

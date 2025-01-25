@@ -1,7 +1,6 @@
 import healthRoute from "./health";
 import categoriesRoute from "./categories";
 import { Hono } from "hono";
-import { clerkMiddleware } from "@hono/clerk-auth";
 import brandsRoute from "./brands";
 import authRoute from "./auth";
 

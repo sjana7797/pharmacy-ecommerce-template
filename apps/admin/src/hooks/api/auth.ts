@@ -1,7 +1,7 @@
 import { login } from "@/admin/api/functions/auth";
 import { useAuth } from "@/admin/providers/auth/auth-provider";
 import { useMutation } from "@tanstack/react-query";
-import { getRouteApi, useRouter, useSearch } from "@tanstack/react-router";
+import { getRouteApi, useRouter } from "@tanstack/react-router";
 import { toast } from "sonner";
 
 export const useLogin = () => {

@@ -5,7 +5,8 @@
     ".": "./src/index.ts",
     "./schema": "./src/schema/index.ts",
     "./types": "./src/types/index.ts",
-    "./utils": "./src/utils/index.ts"
+    "./utils": "./src/utils/index.ts",
+    "./api": "./src/api/index.ts"
   },
   "dependencies": {
     "zod": "^3.24.1"

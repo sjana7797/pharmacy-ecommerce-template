@@ -11,7 +11,7 @@ export default [
   {
     rules: {
       "import/order": [
-        1,
+        "error",
         {
           groups: [
             "external",
