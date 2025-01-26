@@ -12,10 +12,10 @@ import { createFileRoute } from '@tanstack/react-router'
 
 // Import Routes
 
-import { Route as rootRoute } from './routes/__root'
-import { Route as ProtectedImport } from './routes/_protected'
-import { Route as AuthLoginImport } from './routes/auth/login'
-import { Route as ProtectedLayoutImport } from './routes/_protected/_layout'
+import { Route as rootRoute } from './app/routes/__root'
+import { Route as ProtectedImport } from './app/routes/_protected'
+import { Route as AuthLoginImport } from './app/routes/auth/login'
+import { Route as ProtectedLayoutImport } from './app/routes/_protected/_layout'
 
 // Create Virtual Routes
 
@@ -65,7 +65,7 @@ const ProtectedLayoutIndexLazyRoute = ProtectedLayoutIndexLazyImport.update({
   path: '/',
   getParentRoute: () => ProtectedLayoutRoute,
 } as any).lazy(() =>
-  import('./routes/_protected/_layout/index.lazy').then((d) => d.Route),
+  import('./app/routes/_protected/_layout/index.lazy').then((d) => d.Route),
 )
 
 const ProtectedLayoutProductIndexLazyRoute =
@@ -74,7 +74,7 @@ const ProtectedLayoutProductIndexLazyRoute =
     path: '/product/',
     getParentRoute: () => ProtectedLayoutRoute,
   } as any).lazy(() =>
-    import('./routes/_protected/_layout/product/index.lazy').then(
+    import('./app/routes/_protected/_layout/product/index.lazy').then(
       (d) => d.Route,
     ),
   )
@@ -85,7 +85,7 @@ const ProtectedLayoutCategoryIndexLazyRoute =
     path: '/category/',
     getParentRoute: () => ProtectedLayoutRoute,
   } as any).lazy(() =>
-    import('./routes/_protected/_layout/category/index.lazy').then(
+    import('./app/routes/_protected/_layout/category/index.lazy').then(
       (d) => d.Route,
     ),
   )
@@ -96,7 +96,9 @@ const ProtectedLayoutProductAddLazyRoute =
     path: '/product/add',
     getParentRoute: () => ProtectedLayoutRoute,
   } as any).lazy(() =>
-    import('./routes/_protected/_layout/product/add.lazy').then((d) => d.Route),
+    import('./app/routes/_protected/_layout/product/add.lazy').then(
+      (d) => d.Route,
+    ),
   )
 
 const ProtectedLayoutCategoryAddLazyRoute =
@@ -105,7 +107,7 @@ const ProtectedLayoutCategoryAddLazyRoute =
     path: '/category/add',
     getParentRoute: () => ProtectedLayoutRoute,
   } as any).lazy(() =>
-    import('./routes/_protected/_layout/category/add.lazy').then(
+    import('./app/routes/_protected/_layout/category/add.lazy').then(
       (d) => d.Route,
     ),
   )
@@ -116,9 +118,9 @@ const ProtectedLayoutProductProductSlugIndexLazyRoute =
     path: '/product/$productSlug/',
     getParentRoute: () => ProtectedLayoutRoute,
   } as any).lazy(() =>
-    import('./routes/_protected/_layout/product/$productSlug/index.lazy').then(
-      (d) => d.Route,
-    ),
+    import(
+      './app/routes/_protected/_layout/product/$productSlug/index.lazy'
+    ).then((d) => d.Route),
   )
 
 const ProtectedLayoutCategoryCategorySlugIndexLazyRoute =
@@ -128,7 +130,7 @@ const ProtectedLayoutCategoryCategorySlugIndexLazyRoute =
     getParentRoute: () => ProtectedLayoutRoute,
   } as any).lazy(() =>
     import(
-      './routes/_protected/_layout/category/$categorySlug/index.lazy'
+      './app/routes/_protected/_layout/category/$categorySlug/index.lazy'
     ).then((d) => d.Route),
   )
 
@@ -138,9 +140,9 @@ const ProtectedLayoutProductProductSlugEditLazyRoute =
     path: '/product/$productSlug/edit',
     getParentRoute: () => ProtectedLayoutRoute,
   } as any).lazy(() =>
-    import('./routes/_protected/_layout/product/$productSlug/edit.lazy').then(
-      (d) => d.Route,
-    ),
+    import(
+      './app/routes/_protected/_layout/product/$productSlug/edit.lazy'
+    ).then((d) => d.Route),
   )
 
 // Populate the FileRoutesByPath interface

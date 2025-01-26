@@ -15,4 +15,5 @@ export type AuthUser = {
 
 export type Session = AuthUser & {
   accessToken: string;
+  refreshToken: string;
 };

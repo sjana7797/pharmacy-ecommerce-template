@@ -11,5 +11,10 @@ export default defineConfig({
       "@repo/ui": path.resolve(__dirname, "../../packages/ui/src"),
     },
   },
-  plugins: [TanStackRouterVite(), react()],
+  plugins: [
+    TanStackRouterVite({
+      routesDirectory: "./src/app/routes",
+    }),
+    react(),
+  ],
 });

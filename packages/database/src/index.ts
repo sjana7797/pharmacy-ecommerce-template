@@ -1,8 +1,22 @@
 import "dotenv/config";
-import { drizzle } from "drizzle-orm/node-postgres";
+import { drizzle } from "drizzle-orm/postgres-js";
 import { alias } from "drizzle-orm/pg-core";
-import { categories } from "./schema";
+import * as schema from "./schema";
+import postgres from "postgres";
 
-export const db = drizzle(process.env.DATABASE_URL!);
+/**
+ * Cache the database connection in development. This avoids creating a new connection on every HMR
+ * update.
+ */
+const globalForDb = globalThis as unknown as {
+  conn: postgres.Sql | undefined;
+};
 
-export const categoryParent = alias(categories, "category_parent");
+const conn = globalForDb.conn ?? postgres(process.env.DATABASE_URL!);
+if (process.env.NODE_ENV !== "production") globalForDb.conn = conn;
+
+export const db = drizzle(conn, {
+  schema,
+});
+
+export const categoryParent = alias(schema.categories, "category_parent");

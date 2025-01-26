@@ -1,4 +1,4 @@
-import { getAllCategories } from "@/admin/api/functions/categories";
+import { getAllCategories } from "@/admin/features/category/api/category";
 import { PaginationRequest } from "@repo/common/schema";
 import { useQuery } from "@tanstack/react-query";
 
